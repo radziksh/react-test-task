@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 import { Col, Row } from 'react-bootstrap'
-import PlaceComponent from './PlaceComponent'
+import TipComponent from './PlaceComponent'
 
 class LatestTipsPage extends React.Component {
 
@@ -28,7 +28,7 @@ class LatestTipsPage extends React.Component {
       <Row>
         {this.props.allTipsQuery.allTips && this.props.allTipsQuery.allTips.map(post => (
           <Col md={3}>
-            <PlaceComponent
+            <TipComponent
               key={post.id}
               imageUrl={post.imageUrl}
               refresh={() => this.props.allTipsQuery.refetch()}

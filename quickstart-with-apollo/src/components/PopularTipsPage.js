@@ -1,8 +1,8 @@
-import React from 'react'
-import { graphql} from 'react-apollo'
+import React, { Fragment } from 'react'
+import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Col, Row } from 'react-bootstrap'
-import PlaceComponent from './PlaceComponent'
+import TipComponent from './PlaceComponent'
 
 class PopularTipsPage extends React.Component {
 
@@ -25,18 +25,17 @@ class PopularTipsPage extends React.Component {
     }
 
     return (
-      <Row>
+      <Fragment>
         {this.props.allTipsQuery.allTips && this.props.allTipsQuery.allTips.map(post => (
-          <Col md={3}>
-            <PlaceComponent
-              key={post.id}
-              imageUrl={post.imageUrl}
-              refresh={() => this.props.allTipsQuery.refetch()}
-            />
-          </Col>
+          <TipComponent
+            key={post.id}
+            imageUrl={post.imageUrl}
+            description={post.description}
+            refresh={() => this.props.allTipsQuery.refetch()}
+          />
         ))}
         {this.props.children}
-      </Row>
+      </Fragment>
     )
   }
 }

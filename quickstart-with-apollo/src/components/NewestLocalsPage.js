@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PlaceComponent from './PlaceComponent'
+import TipComponent from './PlaceComponent'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Col, Row } from 'react-bootstrap'
@@ -34,7 +34,7 @@ class NewestLocalsPage extends React.Component {
       <Row>
         {this.props.allTipsQuery.allTips && this.props.allTipsQuery.allTips.map(post => (
           <Col md={3}>
-            <PlaceComponent
+            <TipComponent
               key={post.id}
               imageUrl={post.imageUrl}
               refresh={() => this.props.allTipsQuery.refetch()}
