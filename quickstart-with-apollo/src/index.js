@@ -12,7 +12,7 @@ import 'tachyons'
 import './index.css'
 
 // __SIMPLE_API_ENDPOINT__ looks like: 'https://api.graph.cool/simple/v1/__SERVICE_ID__'
-const httpLink = new HttpLink({ uri: '__SIMPLE_API_ENDPOINT__' })
+const httpLink = new HttpLink({ uri: 'https://api.graph.cool/simple/v1/cjd1svpqr08dh0190jx2hzvmu' })
 
 const client = new ApolloClient({
   link: httpLink,
@@ -24,8 +24,9 @@ ReactDOM.render(
     <Router>
       <div>
         <Route exact path='/' component={ListPage} />
-        <Route path='/create' component={CreatePage} />
-        <Route path='/post/:id' component={DetailPage} />
+        <Route path='/verified-locals' component={CreatePage} />
+        <Route path='/latest-tips' component={DetailPage} />
+        <Route path='/newest-locals' component={DetailPage} />
       </div>
     </Router>
   </ApolloProvider>,
