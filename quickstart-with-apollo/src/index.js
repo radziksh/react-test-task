@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ListPage from './components/ListPage'
-import CreatePage from './components/CreatePage'
-import DetailPage from './components/DetailPage'
+import VerifiedLocalsPage from './components/VerifiedLocalsPage'
+import PopularTipsPage from './components/PopularTipsPage'
+import LatestTipsPage from './components/LatestTipsPage'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
@@ -23,10 +23,10 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <Router>
       <div>
-        <Route exact path='/' component={ListPage} />
-        <Route path='/verified-locals' component={CreatePage} />
-        <Route path='/latest-tips' component={DetailPage} />
-        <Route path='/newest-locals' component={DetailPage} />
+        <Route exact path='/' component={MainPage} />
+        <Route path='/verified-locals' component={VerifiedLocalsPage} />
+        <Route path='/latest-tips' component={LatestTipsPage} />
+        <Route path='/newest-locals' component={LatestTipsPage} />
       </div>
     </Router>
   </ApolloProvider>,

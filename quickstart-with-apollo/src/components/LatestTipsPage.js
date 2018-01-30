@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, compose } from 'react-apollo'
 import Modal from 'react-modal'
-import modalStyle from '../constants/modalStyle'
+import modalStyle from './../constants/modalStyle'
 import { withRouter } from 'react-router-dom'
 import gql from 'graphql-tag'
 
@@ -13,7 +13,7 @@ const detailModalStyle = {
   },
 }
 
-class DetailPage extends React.Component {
+class LatestTipsPage extends React.Component {
 
   render() {
     if (this.props.postQuery.loading) {
@@ -106,7 +106,7 @@ const DetailPageWithGraphQL = compose(
   graphql(DELETE_POST_MUTATION, {
     name: 'deletePostMutation'
   })
-)(DetailPage)
+)(LatestTipsPage)
 
 
 

@@ -2,10 +2,10 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { graphql} from 'react-apollo'
 import Modal from 'react-modal'
-import modalStyle from '../constants/modalStyle'
+import modalStyle from './../constants/modalStyle'
 import gql from 'graphql-tag'
 
-class CreatePage extends React.Component {
+class PopularTipsPage extends React.Component {
 
   state = {
     description: '',
@@ -73,5 +73,5 @@ const CREATE_POST_MUTATION = gql`
   }
 `
 
-const CreatePageWithMutation = graphql(CREATE_POST_MUTATION, {name: 'createPostMutation'})(CreatePage)
+const CreatePageWithMutation = graphql(CREATE_POST_MUTATION, {name: 'createPostMutation'})(PopularTipsPage)
 export default withRouter(CreatePageWithMutation)

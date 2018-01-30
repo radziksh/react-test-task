@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Post from '../components/Post'
+import NewestLocalsPage from './NewestLocalsPage'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-class ListPage extends React.Component {
+class VerifiedLocalsPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
@@ -44,7 +44,7 @@ class ListPage extends React.Component {
             <div>New Post</div>
           </Link>
           {this.props.allPostsQuery.allPosts && this.props.allPostsQuery.allPosts.map(post => (
-            <Post
+            <NewestLocalsPage
               key={post.id}
               post={post}
               refresh={() => this.props.allPostsQuery.refetch()}
@@ -72,6 +72,6 @@ const ListPageWithQuery = graphql(ALL_POSTS_QUERY, {
   options: {
     fetchPolicy: 'network-only',
   },
-})(ListPage)
+})(VerifiedLocalsPage)
 
 export default ListPageWithQuery
