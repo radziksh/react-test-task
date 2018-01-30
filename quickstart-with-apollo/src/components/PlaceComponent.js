@@ -1,27 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Image } from 'react-bootstrap'
 
-export default class NewestLocalsPage extends React.Component {
-
+export default class PlaceComponent extends React.Component {
   render() {
     return (
-      <Link
-        className='bg-white ma3 box post flex flex-column no-underline br2'
-        to={`/post/${this.props.post.id}`}
-      >
-        <div
-          className='image'
-          style={{
-            backgroundImage: `url(${this.props.post.imageUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            paddingBottom: '100%',
-          }}
-        />
-        <div className='flex items-center black-80 fw3 description'>
-          {this.props.post.description}
-        </div>
-      </Link>
+      <Image src={this.props.imageUrl} alt='place' style={{ width: '150px', height: '150px' }} />
     )
   }
 

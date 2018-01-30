@@ -12,11 +12,22 @@ type User @model {
 }
 
 
-type Post @model {
+type Tip @model {
   id: ID! @isUnique    # read-only (managed by Graphcool)
   createdAt: DateTime! # read-only (managed by Graphcool)
   updatedAt: DateTime! # read-only (managed by Graphcool)
 
   description: String!
   imageUrl: String!
+  popular: Boolean! @migrationValue(value: false)
+}
+
+type Local @model {
+  id: ID! @isUnique    # read-only (managed by Graphcool)
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
+
+  name: String!
+  imageUrl: String!
+  verified: Boolean!  @migrationValue(value: false)
 }

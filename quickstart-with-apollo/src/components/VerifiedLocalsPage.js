@@ -1,19 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import NewestLocalsPage from './NewestLocalsPage'
+import PlaceComponent from './PlaceComponent'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import { Col, Row } from 'react-bootstrap'
 
 class VerifiedLocalsPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
-      this.props.allPostsQuery.refetch()
+      this.props.allTipsQuery.refetch()
     }
   }
 
   render() {
-    if (this.props.allPostsQuery.loading) {
+    if (this.props.allTipsQuery.loading) {
       return (
         <div className='flex w-100 h-100 items-center justify-center pt7'>
           <div>
@@ -30,36 +31,25 @@ class VerifiedLocalsPage extends React.Component {
     }
 
     return (
-      <div className={'w-100 flex justify-center pa6' + blurClass}>
-        <div className='w-100 flex flex-wrap' style={{maxWidth: 1150}}>
-          <Link
-            to='/create'
-            className='ma3 box new-post br2 flex flex-column items-center justify-center ttu fw6 f20 black-30 no-underline'
-          >
-            <img
-              src={require('../assets/plus.svg')}
-              alt=''
-              className='plus mb3'
-            />
-            <div>New Post</div>
-          </Link>
-          {this.props.allPostsQuery.allPosts && this.props.allPostsQuery.allPosts.map(post => (
-            <NewestLocalsPage
+      <Row>
+        {this.props.allTipsQuery.allTips && this.props.allTipsQuery.allTips.map(post => (
+          <Col md={3}>
+            <PlaceComponent
               key={post.id}
-              post={post}
-              refresh={() => this.props.allPostsQuery.refetch()}
+              imageUrl={post.imageUrl}
+              refresh={() => this.props.allTipsQuery.refetch()}
             />
-          ))}
-        </div>
+          </Col>
+        ))}
         {this.props.children}
-      </div>
+      </Row>
     )
   }
 }
 
-const ALL_POSTS_QUERY = gql`
-  query AllPostsQuery {
-    allPosts(orderBy: createdAt_DESC) {
+const ALL_TIPS_QUERY = gql`
+  query allTipsQuery {
+    allTips(orderBy: createdAt_DESC) {
       id
       imageUrl
       description
@@ -67,11 +57,11 @@ const ALL_POSTS_QUERY = gql`
   }
 `
 
-const ListPageWithQuery = graphql(ALL_POSTS_QUERY, {
-  name: 'allPostsQuery',
+const VerifiedLocalsPageWithQuery = graphql(ALL_TIPS_QUERY, {
+  name: 'allTipsQuery',
   options: {
     fetchPolicy: 'network-only',
   },
 })(VerifiedLocalsPage)
 
-export default ListPageWithQuery
+export default VerifiedLocalsPageWithQuery

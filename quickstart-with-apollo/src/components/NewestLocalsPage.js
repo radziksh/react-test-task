@@ -1,28 +1,67 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PlaceComponent from './PlaceComponent'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { Col, Row } from 'react-bootstrap'
 
-export default class NewestLocalsPage extends React.Component {
+class NewestLocalsPage extends React.Component {
 
-  render() {
-    return (
-      <Link
-        className='bg-white ma3 box post flex flex-column no-underline br2'
-        to={`/post/${this.props.post.id}`}
-      >
-        <div
-          className='image'
-          style={{
-            backgroundImage: `url(${this.props.post.imageUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            paddingBottom: '100%',
-          }}
-        />
-        <div className='flex items-center black-80 fw3 description'>
-          {this.props.post.description}
-        </div>
-      </Link>
-    )
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.key !== nextProps.location.key) {
+      this.props.allTipsQuery.refetch()
+    }
   }
 
+  render() {
+    if (this.props.allTipsQuery.loading) {
+      return (
+        <div className='flex w-100 h-100 items-center justify-center pt7'>
+          <div>
+            Loading
+            (from {process.env.REACT_APP_GRAPHQL_ENDPOINT})
+          </div>
+        </div>
+      )
+    }
+
+    let blurClass = ''
+    if (this.props.location.pathname !== '/') {
+      blurClass = ' blur'
+    }
+
+    return (
+      <Row>
+        {this.props.allTipsQuery.allTips && this.props.allTipsQuery.allTips.map(post => (
+          <Col md={3}>
+            <PlaceComponent
+              key={post.id}
+              imageUrl={post.imageUrl}
+              refresh={() => this.props.allTipsQuery.refetch()}
+            />
+          </Col>
+        ))}
+        {this.props.children}
+      </Row>
+    )
+  }
 }
+
+const ALL_TIPS_QUERY = gql`
+  query allTipsQuery {
+    allTips(orderBy: createdAt_DESC) {
+      id
+      imageUrl
+      description
+    }
+  }
+`
+
+const VerifiedLocalsPageWithQuery = graphql(ALL_TIPS_QUERY, {
+  name: 'allTipsQuery',
+  options: {
+    fetchPolicy: 'network-only',
+  },
+})(NewestLocalsPage)
+
+export default VerifiedLocalsPageWithQuery

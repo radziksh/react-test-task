@@ -1,22 +1,19 @@
 import React from 'react'
-import { graphql, compose } from 'react-apollo'
-import Modal from 'react-modal'
-import modalStyle from './../constants/modalStyle'
-import { withRouter } from 'react-router-dom'
+import { graphql} from 'react-apollo'
 import gql from 'graphql-tag'
-
-const detailModalStyle = {
-  overlay: modalStyle.overlay,
-  content: {
-    ...modalStyle.content,
-    height: 761,
-  },
-}
+import { Col, Row } from 'react-bootstrap'
+import PlaceComponent from './PlaceComponent'
 
 class LatestTipsPage extends React.Component {
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.key !== nextProps.location.key) {
+      this.props.allTipsQuery.refetch()
+    }
+  }
+
   render() {
-    if (this.props.postQuery.loading) {
+    if (this.props.allTipsQuery.loading) {
       return (
         <div className='flex w-100 h-100 items-center justify-center pt7'>
           <div>
@@ -27,64 +24,26 @@ class LatestTipsPage extends React.Component {
       )
     }
 
-    const {Post} = this.props.postQuery
-
     return (
-      <Modal
-        isOpen
-        contentLabel='Create Post'
-        style={detailModalStyle}
-        onRequestClose={this.props.history.goBack}
-      >
-        <div
-          className='close fixed right-0 top-0 pointer'
-          onClick={this.props.history.goBack}
-        >
-          <img src={require('../assets/close.svg')} alt='' />
-        </div>
-        <div
-          className='delete ttu white pointer fw6 absolute left-0 top-0 br2'
-          onClick={this.handleDelete}
-        >
-          Delete
-        </div>
-        <div
-          className='bg-white detail flex flex-column no-underline br2 h-100'
-        >
-          <div
-            className='image'
-            style={{
-              backgroundImage: `url(${Post.imageUrl})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              paddingBottom: '100%',
-            }}
-          />
-          <div className='flex items-center black-80 fw3 description'>
-            {Post.description}
-          </div>
-        </div>
-      </Modal>
+      <Row>
+        {this.props.allTipsQuery.allTips && this.props.allTipsQuery.allTips.map(post => (
+          <Col md={3}>
+            <PlaceComponent
+              key={post.id}
+              imageUrl={post.imageUrl}
+              refresh={() => this.props.allTipsQuery.refetch()}
+            />
+          </Col>
+        ))}
+        {this.props.children}
+      </Row>
     )
-  }
-
-  handleDelete = async () => {
-    await this.props.deletePostMutation({variables: {id: this.props.postQuery.Post.id}})
-    this.props.history.replace('/')
   }
 }
 
-const DELETE_POST_MUTATION = gql`
-  mutation DeletePostMutation($id: ID!) {
-    deletePost(id: $id) {
-      id
-    }
-  }
-`
-
-const POST_QUERY = gql`
-  query PostQuery($id: ID!) {
-    Post(id: $id) {
+const ALL_TIPS_QUERY = gql`
+  query allTipsQuery {
+    allTips(orderBy: createdAt_DESC) {
       id
       imageUrl
       description
@@ -92,24 +51,11 @@ const POST_QUERY = gql`
   }
 `
 
-const DetailPageWithGraphQL = compose(
-  graphql(POST_QUERY, {
-    name: 'postQuery',
-    // see documentation on computing query variables from props in wrapper
-    // http://dev.apollodata.com/react/queries.html#options-from-props
-    options: ({match}) => ({
-      variables: {
-        id: match.params.id,
-      },
-    }),
-  }),
-  graphql(DELETE_POST_MUTATION, {
-    name: 'deletePostMutation'
-  })
-)(LatestTipsPage)
+const LatestTipsPageWithQuery = graphql(ALL_TIPS_QUERY, {
+  name: 'allTipsQuery',
+  options: {
+    fetchPolicy: 'network-only',
+  },
+})(LatestTipsPage)
 
-
-
-const DetailPageWithDelete = graphql(DELETE_POST_MUTATION)(DetailPageWithGraphQL)
-
-export default withRouter(DetailPageWithDelete)
+export default LatestTipsPageWithQuery
