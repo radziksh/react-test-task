@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render NewestLocalsPage 1`] = `null`;
+
+exports[`render NewestLocalsPage in loading state 1`] = `
+<div
+  class="flex w-100 h-100 items-center justify-center pt7"
+>
+  <div>
+    Loading...
+  </div>
+</div>
+`;
+
+exports[`render NewestLocalsPage with loading state 1`] = `
+<div
+  class="flex w-100 h-100 items-center justify-center pt7"
+>
+  <div>
+    Loading...
+  </div>
+</div>
+`;

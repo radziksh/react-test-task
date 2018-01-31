@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import { Col, Row } from 'react-bootstrap'
 import TipComponent from './PlaceComponent'
 
-class NewestLocalsPage extends React.Component {
+export class NewestLocalsPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
