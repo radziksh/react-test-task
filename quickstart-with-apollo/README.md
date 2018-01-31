@@ -3,6 +3,11 @@
 based on: https://github.com/graphcool-examples/react-graphql
 
 React + GraphQL (backend api:  https://api.graph.cool/simple/v1/cjd1svpqr08dh0190jx2hzvmu)
+
+## Preparation:
+1) `nodejs >= 8`
+2) `yarn >= 1.3`
+
 ## how to start:
 
 ```sh
