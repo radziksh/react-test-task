@@ -10,6 +10,8 @@
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
 
+  <!-- flexbox and css grids are better but in the test task asked bootstrap -->
+  <!-- there is resizing bug in microsoft EDGE https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/14375647/ -->
   <style>
     html {
       position: relative;
@@ -17,7 +19,7 @@
     }
 
     body {
-      margin-bottom: 60px;
+      margin-bottom: 80px!important;
     }
 
     @media (min-width: 1500px) {
@@ -25,21 +27,34 @@
         width: 8.3333335%;
       }
     }
+
+    .btn.active {
+      background-color: #cc6699;
+      color: white;
+    }
+
+    btn.active:hover {
+      background-color: #cc6699;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .navigator {
+        flex-direction: column;
+      }
+      .route-link {
+        min-width: 205px;
+      }
+    }
+
+    .route-link {
+      margin: 5px;
+    }
   </style>
   <title>Test task</title>
 </head>
 
 <body id="root">
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` in this folder.
-      To create a production bundle, use `npm run build`.
-    -->
 </body>
 
 </html>

@@ -36,29 +36,37 @@ const DefaultLayout = ({ component: Component, ...rest }) => {
           <Row>
             <Col className={'text-center'} md={12} style={{
               backgroundColor: "#cc6699",
-              height: "100px",
+              height: "120px",
               color: "white",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
-              Connect with local people and find insider travel tips
-          </Col>
+              <h4 style={{
+
+              }}>Connect with local people and find insider travel tips</h4>
+            </Col>
           </Row>
           <Row>
-            <Col md={12} className={'text-center'} style={{
-              height: "50px",
+            <Col md={12} className={'text-center navigator'} style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '10px'
             }}>
-              <LinkContainer to="/">
+              <LinkContainer className={"route-link"} exact to="/" >
                 <Button>Popular tips</Button>
               </LinkContainer>
               {' '}
-              <LinkContainer to={routes.verifiedLocals}>
+              <LinkContainer className={"route-link"} to={routes.verifiedLocals}>
                 <Button>Verified locals</Button>
               </LinkContainer>
               {' '}
-              <LinkContainer to={routes.latestTips}>
+              <LinkContainer className={"route-link"} to={routes.latestTips}>
                 <Button>Latest tips</Button>
               </LinkContainer>
               {' '}
-              <LinkContainer to={routes.newestLocals}>
+              <LinkContainer className={"route-link"} to={routes.newestLocals}>
                 <Button>Newest locals</Button>
               </LinkContainer>
             </Col>
@@ -83,11 +91,12 @@ const DefaultLayout = ({ component: Component, ...rest }) => {
               <Col md={12} className={"text-center"} style={{
                 backgroundColor: "#336699",
                 height: "60px",
-                color: "white"
+                color: "white",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
               }}>
-                <p style={{
-                  margin: "20px 0"
-                }}>GUIDE TO ICELAND</p>
+                GUIDE TO ICELAND
               </Col>
             </Row>
           </div>
